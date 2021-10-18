@@ -57,4 +57,4 @@ func main() {
 
 3. Run your `make run-test`:
 
-![swagger_index.html](https://raw.githubusercontent.com/swaggo/swag/master/assets/example.png)
+![swagger_index.html](https://raw.githubusercontent.com/trunglt251292/echo-swagger/tree/main/assets/example.png)
