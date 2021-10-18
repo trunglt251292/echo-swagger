@@ -32,18 +32,37 @@ func main() {
 		})
 	}).AddDescriptions(echoswagger.NewDescription("Example get api", "")).
 		AddParamQuery("string", "limit", "Limit", false).
-		AddParamQuery("string", "id", "ID", true)
+		AddParamQuery("string", "id", "ID", true).
+		// Or
+		InQuery([]*echoswagger.Params{
+		{
+			Param:    "string",
+			Name:     "sort",
+			Required: false,
+			Desc:     "....",
+			Type:     "string",
+		},
+	})
 
 	// Param
-	r.PUT("/:id", func(c echo.Context) error {
+	r.PUT("/:id/:id2", func(c echo.Context) error {
 		id := c.Param("id")
 		return c.JSON(http.StatusOK, echo.Map{
 			"success": true,
 			"id":      id,
 		})
 	}).AddDescriptions(echoswagger.NewDescription("Example with param", "")).
-		AddParamPath("string", "id", "ID")
-
+		AddParamPath("string", "id", "ID").
+		// Or
+		InPath([]*echoswagger.Params{
+				{
+					Param:    "string",
+					Name:     "id2",
+					Required: true,
+					Desc:     "....",
+					Type:     "string",
+				},
+			})
 	// Body
 	r.POST("", func(c echo.Context) error {
 		var (
@@ -56,6 +75,8 @@ func main() {
 		})
 	}).AddDescriptions(echoswagger.NewDescription("Example with param", "")).
 		AddParamBody(&constants.BodyExample{ID: "1"}, "body", "Body", true).
+		// Or
+		//InBody(&echoswagger.Params{})
 		ResponseDefault([]*echoswagger.ResponseJSON{
 			{
 				Code: 200,
